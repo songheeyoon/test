@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     Container : {
         flex:1,
         backgroundColor:'#141517',
-        paddingTop:Height()
+        // paddingTop:Height()
         },
     Font : {
         color:"#ddd"

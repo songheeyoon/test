@@ -1,5 +1,5 @@
 import React, { useState,useCallback } from 'react';
-import {Image, View,StyleSheet,Text,TouchableOpacity, StatusBar, SafeAreaView,Button, FlatList, ScrollView, Alert} from 'react-native';
+import {Image, View,StyleSheet,Text,TouchableOpacity, StatusBar, SafeAreaView,Button, FlatList, ScrollView, Alert,Platform} from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { Container, Header, Left, Body, Right, Content } from 'native-base';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
@@ -77,7 +77,7 @@ const Evaluation = ({navigation,route}) =>{
     return(
             <Container style={styles.Container}>
 
-                <Header span style={{paddingTop:15,backgroundColor:"#141517",height:105}}>
+                <Header span style={{ paddingTop:15,backgroundColor:"#141517",height:105}}>
                     <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} ></StatusBar>
 
                     <Left transparent>
@@ -217,8 +217,8 @@ const styles = StyleSheet.create({
     Container : {
         flex:1,
         backgroundColor:'#141517',
-        paddingTop:Height()
-        },
+        paddingTop:Platform.OS === "ios" ? 0 : Height()}
+        ,
     Font : {
         color:"#ddd"
     }

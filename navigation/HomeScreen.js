@@ -30,7 +30,7 @@ const HomeScreen = ({navigation,route}) => {
     //  },[navigation,route])
     const [toggle,setToggle] = useState('');
     return(
-    <Tab.Navigator tabBarOptions={{showIcon:"true",style:{backgroundColor:"#141517",height:55},labelStyle: { fontSize: 12}, activeTintColor: 'white',
+    <Tab.Navigator tabBarOptions={{showIcon:"true",style:{backgroundColor:"#141517"},labelStyle: { fontSize: 12}, activeTintColor: 'white',
     inactiveTintColor: 'gray'}}>
         {/* ,indicatorStyle :{backgroundColor:"#141517"} */}
       <Tab.Screen name="Main" component={MainScreen}
