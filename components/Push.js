@@ -1,19 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import Constants from 'expo-constants';
 import React, { useState, useRef,useEffect } from 'react';
-import { Alert, SafeAreaView, StyleSheet, Text, View,Platform,TextInput,TouchableOpacity } from 'react-native';
-import { NavigationContainer, useLinking } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './navigation/HomeScreen';
-import WebContents from './components/WebContent';
-import Push from './components/Push';
-import * as Linking from 'expo-linking';
-import Mypage from './components/Mypage';
-import Category from './components/Category';
-import Evaluation from './components/Evaluation';
-
+import {View,StatusBar,StyleSheet,Platform,TextInput,TouchableOpacity,Text,Alert} from 'react-native';
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import * as Linking from 'expo-linking';
+import { useLinkTo } from '@react-navigation/native';
 
 
 // 서버 endpoint 를 위해 선언 뒤에 url 은 바꿔줄것.
@@ -30,7 +21,7 @@ Notifications.setNotificationHandler({
     shouldPlaySound: false,
     shouldSetBadge: false,
   }),
-  handleSuccess:async ()  => ({
+  handleSuccess:async () => ({
     //  수신 알림이 성공적으로 처리 될때마다 호출되는 함수 선택사항 
   }),
   handleError:async () => ({
@@ -39,14 +30,7 @@ Notifications.setNotificationHandler({
 });
 
 
-const prefix = Linking.makeUrl('/');
-const Stack = createStackNavigator();
-
-
-export default function App({navigation,route}) {
-  const navigationRef = useRef();
-  const [isReady,setIsReady] = useState(false);
-  const [initialState, setInitialState] = useState();
+const Push = ({navigation}) => {
 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
@@ -54,74 +38,22 @@ export default function App({navigation,route}) {
   const responseListener = useRef(); 
   const [messageText,setMessageText] = useState('');
 
-  const {getInitialState} = useLinking(navigationRef,{
-    prefixes: [prefix],
-    config:{
-      screen:{
-        Home:{
-          path:'home',
-            screen:{
-              Main : 'main',
-              Category :'category',
-              Evaluation:{
-                path:'evaluation',
-                screen:{
-                  Evaluate:{
-                    path:'evaluate',
-                    screen:{
-                      Web:{
-                        path:'web',
-                        params:''
-                      }
-
-                    }
-                  }
-                }
-              },
-              MyPage : "mypage"
-            }
-        }
-      }
-    }
-
-  })
-
-  useEffect(() => {
-    getInitialState()
-      .catch((error) => {
-        // console.error('error getInitialState', error);
-      })
-      .then((state) => {
-        // console.log('state', state);
-
-        if (state !== undefined) {
-          setInitialState(state);
-        }
-
-        setIsReady(true);
-        // console.log(state+"state");
-      });
-  }, [getInitialState]);
-
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => sendPushNotification(token));
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
        // 앱이 포그라운 상태인 동안 알람이 수신될 때 마다 실행
-      //  새로운 알림이 수신 될때 마다 
       //  단말기에서 2개 이상 프로그램이 돌아갈때 한 프로세스가 다른 프로세스보다 우선권을 가지고 수행되는것.
       notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
       setNotification(notification);
     });
 
       // 사용자가 알람을 탭했을때,상호작용 할때 마다 실행
       responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-
-
-        const screen = response.notification.request.content.data.body.screen;
-      // if (screen) navigation.navigate(screen);
-      console.log(screen);
-      Linking.openURL(screen);
+      const screen = response.notification.request.content.data.body.screen;
+    //  console.log(screen);
+        useLinkTo(screen);
 
       // Linking.addEventListener('url',url);
       // if (screen) navigation.navigate("Home",navigation.navigate(screen));
@@ -135,40 +67,46 @@ export default function App({navigation,route}) {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-  console.log(initialState+"init");
-  if(!isReady){
-    return null;
-  }
-  
-  return (
-    <NavigationContainer initialState={initialState} ref={navigationRef}>
-      <Stack.Navigator>
-      <Stack.Screen 
-        name="Home" 
-        component={HomeScreen} 
-        options={{headerShown: false}}
-        // initialParams={{initialState}}
-        />
-        {/* <Stack.Screen name="Category" component={Category} options={{headerShown: false}}>
-        </Stack.Screen>
-        <Stack.Screen name="Evaluat" component={Evaluation} options={{headerShown: false}}>
-        </Stack.Screen>
-        <Stack.Screen name="mypage" component={Mypage} options={{headerShown: false}}>
-        </Stack.Screen> */}
-    {/* <Stack.Screen name="push" component={Push} options={{headerShown: false}}/> */}
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
+
+
+
+  // const handleChangeText = (text) =>{
+  //   setMessageText(text);
+  // }
+
+  // const sendMessage = async () => {
+  //   fetch(MESSAGE_ENPOINT, {
+  //     method: 'POST',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({
+  //       message: messageText
+  //     }),
+  //   });
+  //   setMessageText ( {messageText : ''});
+  // }
+
+
+    return(
+<>
+</>
+    )
+
 }
 
+export default Push;
+
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#141517',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
+    Container : {
+        flex:10,
+        height:'100%',
+        backgroundColor:'#141517'
+        // paddingTop: Platform.OS === 'ios' ? 60: 0    
+    }
+})
 
 registerForPushNotificationsAsync = async () => {
   //  알림을 보낼 수 있는 권한이 이미 있는지 
@@ -197,7 +135,7 @@ registerForPushNotificationsAsync = async () => {
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(token);
   } else {
-    // alert('Must use physical device for Push Notifications');
+    alert('Must use physical device for Push Notifications');
   }
 
   if (Platform.OS === 'android') {
