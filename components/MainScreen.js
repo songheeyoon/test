@@ -12,12 +12,12 @@ const Stack = createStackNavigator();
 
 const MainScreen = () =>{
     return(
-        <NavigationContainer independent="true">
+        // <NavigationContainer independent="true">
             <Stack.Navigator>
             <Stack.Screen name="main" component={Main} 
             options={(navigation,route)=>({
                 headerTitle:false,
-                headerTransparent: true
+                headerTransparent: true,
             })} 
 
             // headerLeft: () =>(
@@ -38,7 +38,7 @@ const MainScreen = () =>{
           >
           </Stack.Screen>
             </Stack.Navigator>
-        </NavigationContainer>
+        // </NavigationContainer>
     );
 }
 

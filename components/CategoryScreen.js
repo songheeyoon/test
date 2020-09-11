@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 const CategoryScreen = ({navigation}) =>{
     return(
-        <NavigationContainer independent="true">
+        // <NavigationContainer independent="true">
             <Stack.Navigator lazy="true">
             <Stack.Screen name="main" component={Category}
             options={{ 
@@ -37,7 +37,7 @@ const CategoryScreen = ({navigation}) =>{
 
           </Stack.Screen>
             </Stack.Navigator>
-        </NavigationContainer>
+        // </NavigationContainer>
     );
 }
 

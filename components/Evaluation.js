@@ -6,6 +6,7 @@ import { getStatusBarHeight } from 'react-native-status-bar-height';
 import { isIphoneX, getBottomSpace } from "react-native-iphone-x-helper";
 import Modal_custom from './Modal_custom';
 import ActionSheet from './ActionSheet';
+import {Context} from './Context';
 
 import { Entypo } from '@expo/vector-icons';
 // import { ActionSheetCustom as ActionSheet } from 'react-native-actionsheet'
@@ -61,11 +62,12 @@ const actionItems = [
 ]
 
 
-
 const Evaluation = ({navigation,route}) =>{
+
     for (var key in route) {
         console.log( key + " / " + route[key])
      }
+
     // console.log(route+"평가페이지");
     const [num,setNum] = useState(0);
     // const closeActionSheet = () => setActionSheet(false);
@@ -75,9 +77,10 @@ const Evaluation = ({navigation,route}) =>{
     // const [score,setScore] = useState(0);
 
     return(
-            <Container style={styles.Container}>
-
-                <Header span style={{ paddingTop:15,backgroundColor:"#141517",height:105}}>
+        <Context.Consumer>
+            {(value)=>(
+                <Container style={styles.Container}>
+                  <Header span style={{ paddingTop:15,backgroundColor:"#141517",height:105,borderBottomColor:'transparent'}}>
                     <StatusBar barStyle="light-content" backgroundColor="transparent" translucent={true} ></StatusBar>
 
                     <Left transparent>
@@ -205,6 +208,9 @@ const Evaluation = ({navigation,route}) =>{
                     />
                 </Modal> */}
             </Container>
+            )}
+            </Context.Consumer>
+
     );
 }
 

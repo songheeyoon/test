@@ -11,7 +11,7 @@ const Tab = createMaterialTopTabNavigator();
 const Category = () => {
 
 return(
-    <Tab.Navigator tabBarOptions={{style:{backgroundColor:"#141517"},activeTintColor:"#eb0056",inactiveTintColor:"#555",labelStyle: { fontSize: 16},indicatorStyle:{backgroundColor:"#eb0056"}}}>
+    <Tab.Navigator tabBarOptions={{style:{backgroundColor:"#141517",borderTopColor:'#141517'},activeTintColor:"#eb0056",inactiveTintColor:"#555",labelStyle: { fontSize: 16},indicatorStyle:{backgroundColor:"#eb0056"}}}>
       <Tab.Screen name="genre" component={Category_genre} 
         options={{
             tabBarLabel:'장르'
