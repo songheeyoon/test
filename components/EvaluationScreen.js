@@ -12,12 +12,12 @@ const Stack = createStackNavigator();
 
 const EvaluationScreen = ({navigation,route,children}) =>{
 
+    // console.log(route+"라우터");
     // navigation.push("Web",{toggle:"false"});
-
     // navigation.push("Web",{toggle:true});
 
     // for (var key in route) {
-    //     console.log(key + " / " + route[key])
+    //     console.log(key + " / " + navigation[key])
     //  }
 
     // console.log(JSON.stringify(navigation)+"S");
@@ -26,7 +26,7 @@ const EvaluationScreen = ({navigation,route,children}) =>{
 
     useEffect(()=>{
         navigation.addListener('tabPress',e=>{
-            console.log(navigation.navigate);
+            navigation.setOptions({tabBarVisible:true})
         })
     });
 
@@ -56,12 +56,12 @@ const EvaluationScreen = ({navigation,route,children}) =>{
             toggle:toggle,
             change
         }}>
-            <NavigationContainer independent="true">
+            {/* <NavigationContainer independent="true"> */}
                 <Stack.Navigator initialRouteName="Evaluat">
-                    <Stack.Screen name="Evaluat" component={Evaluation} options={{headerShown: false}} />
-                    <Stack.Screen name="Web" component={WebContents} options={{headerShown: false,}} />
+                    <Stack.Screen name="Evaluat" component={Evaluation} options={{headerShown: false}}/>
+                    <Stack.Screen name="Web" component={WebContents} options={{headerShown: false}}/>
                 </Stack.Navigator>
-            </NavigationContainer>
+            {/* </NavigationContainer> */}
         </Context.Provider>
     );
 }

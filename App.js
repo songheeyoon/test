@@ -54,6 +54,8 @@ export default function App({navigation,route}) {
   const responseListener = useRef(); 
   const [messageText,setMessageText] = useState('');
 
+
+
   const {getInitialState} = useLinking(navigationRef,{
     prefixes: [prefix],
     config:{
@@ -66,17 +68,12 @@ export default function App({navigation,route}) {
               Evaluation:{
                 path:'evaluation',
                 screen:{
-                  Evaluate:{
-                    path:'evaluate',
-                    screen:{
-                      Web:{
-                        path:'web',
-                        params:''
-                      }
-
+                  Evaluate:'evaluate',
+                  Web:{
+                      path:'web',
+                      params:''
                     }
                   }
-                }
               },
               MyPage : "mypage"
             }
@@ -102,6 +99,8 @@ export default function App({navigation,route}) {
         // console.log(state+"state");
       });
   }, [getInitialState]);
+
+  console.log(initialState+"init");
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => sendPushNotification(token));
@@ -135,7 +134,7 @@ export default function App({navigation,route}) {
       Notifications.removeNotificationSubscription(responseListener);
     };
   }, []);
-  console.log(initialState+"init");
+  
   if(!isReady){
     return null;
   }
@@ -147,7 +146,7 @@ export default function App({navigation,route}) {
         name="Home" 
         component={HomeScreen} 
         options={{headerShown: false}}
-        // initialParams={{initialState}}
+        // initialParams={{navigationRef}}
         />
         {/* <Stack.Screen name="Category" component={Category} options={{headerShown: false}}>
         </Stack.Screen>

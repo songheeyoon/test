@@ -48,9 +48,8 @@ const WebContents = ({navigation,route }) => {
     const [currentUrl, setCurrentUrl] = useState("");
     const ref = useRef();
     const [show,setShow] = useState('up');
-    
-    console.log(route);
 
+    console.log(navigation);
     // useEffect(()=>{
 
     //     navigation.addListener('tabPress',e=>{
@@ -67,9 +66,6 @@ const WebContents = ({navigation,route }) => {
     //     target:navigation.dangerouslyGetState().key,
     // })
     const onAndroidBackPress = () => {
-        
-        console.log("눌림"+canGoBack+"goBack")
-
         if(ref && canGoBack){
             ref.current.goBack();
             return true;
@@ -159,7 +155,6 @@ const WebContents = ({navigation,route }) => {
                     value.change(event.nativeEvent.data);            
             }}
             onNavigationStateChange={navState => {
-                console.log(navState);
                 setCanGoBack(navState.canGoBack);
               }}
             >

@@ -15,7 +15,10 @@ const MyPageScreen = () =>{
             options={{ 
                 headerStyle:{
                     backgroundColor:"#141517"
-                },                
+                },    
+                headerTitleStyle:{
+                    display:"none"
+                },            
             headerLeft: () => (
                 <TouchableOpacity>
                     <AntDesign name="setting" size={24} color="#fff" style={{marginLeft:10}} />
