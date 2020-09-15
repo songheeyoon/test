@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "53441648313",
+    "firebase_url": "https://watcha-cc699.firebaseio.com",
+    "project_id": "watcha-cc699",
+    "storage_bucket": "watcha-cc699.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53441648313:android:cf29e4d53744134032ad68",
+        "android_client_info": {
+          "package_name": "com.toonlab.watcha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53441648313-1r1gldkg7a3o9sl0j6ef9fbs3hns0285.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDC4GnNN8sLNDEct5Mnkqw8jYnKzZtItxI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53441648313-1r1gldkg7a3o9sl0j6ef9fbs3hns0285.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

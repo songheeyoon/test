@@ -19,12 +19,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier":"com.toonlab.watcha"
+      "bundleIdentifier":"com.toonlab.watcha",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android":{
+      "googleServicesFile": "./google-services.json",
       "package":"com.toonlab.watcha",
       "useNextNotificationsApi": true
     }

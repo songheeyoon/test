@@ -12,14 +12,62 @@ import Mypage from './components/Mypage';
 import Category from './components/Category';
 import Evaluation from './components/Evaluation';
 
+import * as firebase from 'firebase';
+import 'firebase/firestore';
+
 import * as Notifications from 'expo-notifications';
 import * as Permissions from 'expo-permissions';
 
+// var db = firebase.firestore();
 
 // 서버 endpoint 를 위해 선언 뒤에 url 은 바꿔줄것.
-const PUSH_REGISTRATION_ENDPOINT = 'http://15c583b833df.ngrok.io///token';
-const MESSAGE_ENPOINT = 'http://15c583b833df.ngrok.io//message';
+const PUSH_REGISTRATION_ENDPOINT = 'http://905cd4e8c37a.ngrok.io///token';
+const MESSAGE_ENPOINT = 'http://905cd4e8c37a.ngrok.io//message';
 let token;
+
+// await fetch('https://fcm.googleapis.com/fcm/send', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//     Authorization: `key=<AAAADHFe1rk:APA91bHlH5R2y2MhMFwYdexWHdeNfERliO8Isxl-nyL7MpE-LdiyM945nPislY_I9gN8S-JcZY8Ij6SXgwjkJmttvKsJBGe3fHjl1yGnn0nvbR8EKbuNKD5uus3VnQIYFVE9VoJzk2GL>`,
+//   },
+//   body: JSON.stringify({
+//     to: '<NATIVE-DEVICE-PUSH-TOKEN>',
+//     priority: 'normal',
+//     data: {
+//       experienceId: '@yourExpoUsername/yourProjectSlug',
+//       title: "📧 You've got mail",
+//       message: 'Hello world! 🌐',
+//     },
+//   }),
+// });
+
+
+// firebas 초기화
+const firebaseConfig = {
+  apiKey: "AIzaSyDC4GnNN8sLNDEct5Mnkqw8jYnKzZtItxI",
+  authDomain: "watcha-cc699.firebaseapp.com",
+  databaseURL: "https://watcha-cc699.firebaseio.com",
+  projectId: "watcha-cc699",
+  storageBucket: "watcha-cc699.appspot.com",
+  messagingSenderId: "53441648313"
+};
+
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
+
+function storetoken(token) {
+  // db.collection("user").doc(token);
+  // if(firebase.database().ref().on().token === token){
+  //   break;
+  // }
+
+  firebase.database().ref().set({
+    token: token
+  });
+  // console.log(firebase.database().ref().on().token);
+}
 
 // 앱이 실행되는 동안 알림이 수신되면
 Notifications.setNotificationHandler({
@@ -194,6 +242,7 @@ registerForPushNotificationsAsync = async () => {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
+    storetoken(token);
     console.log(token);
   } else {
     // alert('Must use physical device for Push Notifications');
