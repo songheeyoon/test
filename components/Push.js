@@ -38,6 +38,8 @@ const Push = ({navigation}) => {
   const responseListener = useRef(); 
   const [messageText,setMessageText] = useState('');
 
+  Linking.openURL("myapp:///Home/Evaluation/Web?url=http://m.comic.naver.com/webtoon/list.ntn&data=titleld=626907");
+  // Linking.openURL("exp://192.168.0.42:19000/--/Home/Evaluation/Web?url=http://m.comic.naver.com/webtoon/list.ntn&data=titleld=626907");
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => sendPushNotification(token));
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));

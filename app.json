@@ -30,5 +30,6 @@
       "package":"com.toonlab.watcha",
       "useNextNotificationsApi": true
     }
+    
   }
 }

@@ -168,6 +168,7 @@ export default function App({navigation,route}) {
         const screen = response.notification.request.content.data.body.screen;
       // if (screen) navigation.navigate(screen);
       console.log(screen);
+
       Linking.openURL(screen);
 
       // Linking.addEventListener('url',url);
