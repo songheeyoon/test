@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>53441648313-b5pl62sk5p5pjmo1tu8kbslv380o4414.apps.googleusercontent.com</string>
+	<string>53441648313-vp61bmjiacf02th58puhtfbb265mf1t3.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.53441648313-b5pl62sk5p5pjmo1tu8kbslv380o4414</string>
+	<string>com.googleusercontent.apps.53441648313-vp61bmjiacf02th58puhtfbb265mf1t3</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBoDBPPwviXRjkELs20MXXT7OBNbAvCgxQ</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.toonlab.watcha</string>
+	<string>com.toonlab.example</string>
 	<key>PROJECT_ID</key>
 	<string>watcha-cc699</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,7 +29,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:53441648313:ios:6c039060aac3e20f32ad68</string>
+	<string>1:53441648313:ios:14e480da25e6dd4a32ad68</string>
 	<key>DATABASE_URL</key>
 	<string>https://watcha-cc699.firebaseio.com</string>
 </dict>

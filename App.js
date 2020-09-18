@@ -1,22 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import React, { useState, useRef,useEffect } from 'react';
-import { Alert, SafeAreaView, StyleSheet, Text, View,Platform,TextInput,TouchableOpacity } from 'react-native';
+import {PushNotificationIOS, Alert, SafeAreaView, StyleSheet, Text, View,Platform ,AppState } from 'react-native';
 import { NavigationContainer, useLinking } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './navigation/HomeScreen';
-import WebContents from './components/WebContent';
-import Push from './components/Push';
 import * as Linking from 'expo-linking';
-import Mypage from './components/Mypage';
-import Category from './components/Category';
-import Evaluation from './components/Evaluation';
 
 import * as firebase from 'firebase';
 import 'firebase/firestore';
 
 import * as Notifications from 'expo-notifications';
+import {Notifications as Notifications2} from 'expo';
+
 import * as Permissions from 'expo-permissions';
+// import { notifications } from 'react-native-firebase';
 
 // var db = firebase.firestore();
 
@@ -41,6 +39,9 @@ let token;
 //     },
 //   }),
 // });
+setTimeout(()=>{
+
+},5000);
 
 
 // firebas 초기화
@@ -90,18 +91,17 @@ Notifications.setNotificationHandler({
 const prefix = Linking.makeUrl('/');
 const Stack = createStackNavigator();
 
-
 export default function App({navigation,route}) {
   const navigationRef = useRef();
   const [isReady,setIsReady] = useState(false);
   const [initialState, setInitialState] = useState();
-
+  const [screen,setScreen] = useState();
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef(); 
   const [messageText,setMessageText] = useState('');
-
+  const [appState, setAppstate] = useState(AppState.currentState);
 
 
   const {getInitialState} = useLinking(navigationRef,{
@@ -131,6 +131,7 @@ export default function App({navigation,route}) {
 
   })
 
+
   useEffect(() => {
     getInitialState()
       .catch((error) => {
@@ -157,33 +158,71 @@ export default function App({navigation,route}) {
        // 앱이 포그라운 상태인 동안 알람이 수신될 때 마다 실행
       //  새로운 알림이 수신 될때 마다 
       //  단말기에서 2개 이상 프로그램이 돌아갈때 한 프로세스가 다른 프로세스보다 우선권을 가지고 수행되는것.
-      notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
-    });
+    //   notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    //     // const screen = response.notification.request.content.data.body.screen;
 
-      // 사용자가 알람을 탭했을때,상호작용 할때 마다 실행
-      responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    //   setNotification(notification);
+    // });
 
+    // return () => {
+    //   Notifications.removeNotificationSubscription(notificationListener);
+    // };
+  },[]);
 
-        const screen = response.notification.request.content.data.body.screen;
-      // if (screen) navigation.navigate(screen);
-      console.log(screen);
+  // useEffect(()=>{ 
+  //   AppState.addEventListener("change",_handleAppStateChange);
+  //   return()=>{
+  //   AppState.removeEventListener("change",_handleAppStateChange);
+  //   }
+  // },[]);
+  // const _handleAppStateChange = (nextAppState) => {
+  //   if(appState.match('background')){
+      
+  //   }
+  // }
+  setInterval(()=>{
+    if(appState.match('background')){
+      console.log('background');
+    }
+    
+},1000);
 
-      Linking.openURL(screen);
+  // useEffect(()=>{
+  //   setTimeout(()=>{
+  //     console.log(appState+"1");
+  //       Notifications.addNotificationResponseReceivedListener(response => {
+  //       const data = response.notification.request.content.data.body.screen;
+  //       setScreen(data);
+  //       Linking.openURL(data);
+  //       // setScreen('');
+  //       if(appState.match('background')||data){
+  //         console.log(appState);
+  //         // Linking.openURL(data);          
+  //       }
+  //         console.log(data);
+  //     })
+  //   },5000);
+  //   // return () => subscription.remove(); 
+  // });
 
-      // Linking.addEventListener('url',url);
-      // if (screen) navigation.navigate("Home",navigation.navigate(screen));
-      // A simple example of passing data as the value
-      // of the screen you want the user to be navigated to
-      // when they click on a notification
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener);
-      Notifications.removeNotificationSubscription(responseListener);
-    };
-  }, []);
+  Notifications.addNotificationResponseReceivedListener((response) => {
+    // It didn't work for me
+  });
   
+  Notifications2.addListener((response) => {
+    console.log(response);
+      // console.log(appState+"1");
+        const link = response.data.screen;
+        setScreen(link);
+        Linking.openURL(link);
+      //   // setScreen('');
+      //   if(appState.match('background')||link){
+      //     console.log(appState);
+      //     // Linking.openURL(data);          
+      //   }
+      //     console.log(link);
+  });
+
   if(!isReady){
     return null;
   }
@@ -207,7 +246,9 @@ export default function App({navigation,route}) {
       </Stack.Navigator>
     </NavigationContainer>
   );
+  
 }
+
 
 const styles = StyleSheet.create({
   container: {
