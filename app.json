@@ -2,7 +2,7 @@
   "expo": {
     "name": "watcha",
     "slug": "watcha",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "myapp",
@@ -29,7 +29,7 @@
     "android":{
       "googleServicesFile": "./google-services.json",
       "package":"com.toonlab.watcha",
-      "useNextNotificationsApi": true,
+      "useNextNotificationsApi": true
     }
     
   }

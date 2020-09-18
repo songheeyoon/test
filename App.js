@@ -130,7 +130,39 @@ export default function App({navigation,route}) {
     }
 
   })
+   useEffect(()=>{
+     AppState.addEventListener('change',handleChange);
+     return () => {
+      AppState.removeEventListener('change',handleChange);
+     }
+   })
 
+   const handleChange = nextAppState => {
+      setAppstate(appState => nextAppState);
+      if(nextAppState === 'background'){
+        console.log("app is in background mode");
+        Notifications2.addListener((response) => {
+     
+              const link = response.data.screen;
+              setScreen(link);
+              Linking.openURL(link);
+      
+        });
+      }
+      if(nextAppState === 'active'){
+        console.log("app is in active foreground mode")
+      }
+      if(nextAppState === 'inactive'){
+        console.log("app is in inactive mode")
+        Notifications2.addListener((response) => {
+              const link = response.data.screen;
+              setScreen(link);
+              Linking.openURL(link);
+      
+        });        
+      }
+
+   }
 
   useEffect(() => {
     getInitialState()
@@ -149,7 +181,6 @@ export default function App({navigation,route}) {
       });
   }, [getInitialState]);
 
-  console.log(initialState+"init");
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => sendPushNotification(token));
@@ -207,20 +238,17 @@ export default function App({navigation,route}) {
 
   Notifications.addNotificationResponseReceivedListener((response) => {
     // It didn't work for me
+    const link = response.notification.request.content.data.body.screen;
+    setScreen(link);
+    Linking.openURL(link);
   });
   
   Notifications2.addListener((response) => {
     console.log(response);
-      // console.log(appState+"1");
         const link = response.data.screen;
         setScreen(link);
         Linking.openURL(link);
-      //   // setScreen('');
-      //   if(appState.match('background')||link){
-      //     console.log(appState);
-      //     // Linking.openURL(data);          
-      //   }
-      //     console.log(link);
+
   });
 
   if(!isReady){
